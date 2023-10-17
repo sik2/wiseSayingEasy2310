@@ -27,15 +27,39 @@ public class Main {
                 wiseSayingList.add(wiseSaying);
 
                 id++;
-
             } else if (command.equals("목록")) {
                 System.out.println("번호 / 작가 / 명언");
                 for (WiseSaying wiseSaying : wiseSayingList) {
                     System.out.printf("%d, %s, %s \n", wiseSaying.getId(), wiseSaying.getAuthor(), wiseSaying.getContent());
                 }
+            } else if (command.equals("삭제")) {
+                System.out.println("삭제할 번호(id)를 입력 해주세요.");
+                long removeId = Long.parseLong(sc.nextLine());
+
+                for (WiseSaying wiseSaying : wiseSayingList) {
+                    if (wiseSaying.getId() == removeId) {
+                        wiseSayingList.remove(wiseSaying);
+                    }
+                }
+                System.out.println(removeId + "번 명언이 삭제 되었습니다.");
+            } else if (command.equals("수정")) {
+                System.out.println("수정할 번호(id)를 입력 해주세요.");
+                long modifyId = Long.parseLong(sc.nextLine());
+
+                for (WiseSaying wiseSaying : wiseSayingList) {
+                    if (wiseSaying.getId() == modifyId) {
+                        System.out.printf("기존 명언: %s \n", wiseSaying.getContent());
+                        String content = sc.nextLine();
+                        wiseSaying.setContent(content);
+
+                        System.out.printf("기존 작가: %s \n", wiseSaying.getAuthor());
+                        String author = sc.nextLine();
+                        wiseSaying.setAuthor(author);
+                    }
+                }
+                System.out.println(modifyId + "번 명언이 수정 되었습니다.");
             }
         }
-
 
         sc.close();
     }
@@ -63,5 +87,13 @@ class WiseSaying {
 
     public String getContent() {
         return this.content;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setContent (String content) {
+        this.content = content;
     }
 }
